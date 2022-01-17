@@ -47,10 +47,10 @@ Remove-Item $Path\$Installer
 # Install Docker for Windows 
 $Path = $env:TEMP; 
 $Installer = "Docker Desktop Installer.exe"
-Write-Output "Downloading Chrome installer"
-Invoke-WebRequest "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=dd-smartbutton&utm_location=header" -OutFile $Path\$Installer
+Write-Output "Downloading Docker installer"
+Invoke-WebRequest "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe" -OutFile $Path\$Installer
 Write-Output "Installing Docker for Desktop from $Path\$Installer..."
-Start-Process -FilePath $Path\$Installer -Args "/silent /install" -Verb RunAs -Wait
+Start-Process -FilePath $Path\$Installer -Args "install --quite" -Wait -NoNewWindow
 Remove-Item $Path\$Installer
 
 if([string]::IsNullOrEmpty($installOptions) -eq $false) 
