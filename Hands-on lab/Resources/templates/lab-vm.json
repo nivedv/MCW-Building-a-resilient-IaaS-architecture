@@ -28,8 +28,27 @@
     "baseUri": {
         "type": "string",
         "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/november-2020-test-fix/Hands-on%20lab/Resources/"
-    }
+    },
+    "autoShutdownStatus": {
+            "type": "string"
+        },
+        "autoShutdownTime": {
+            "type": "string"
+        },
+        "autoShutdownTimeZone": {
+            "type": "string"
+        },
+        "autoShutdownNotificationStatus": {
+            "type": "string"
+        },
+        "autoShutdownNotificationLocale": {
+            "type": "string"
+        },
+        "autoShutdownNotificationEmail": {
+            "type": "string"
+        }
   },
+  
   "variables": {
     "customScriptFolder": "./Resources/scripts/",
     "customScriptUriScriptFileName": "configure-labvm.ps1",
@@ -187,6 +206,30 @@
         }
       },
       "resources": [
+        {
+            "name": "[concat('shutdown-computevm-', variables('vmName'))]",
+            "type": "Microsoft.DevTestLab/schedules",
+            "apiVersion": "2017-04-26-preview",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+            ],
+            "properties": {
+                "status": "[parameters('autoShutdownStatus')]",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                    "time": "[parameters('autoShutdownTime')]"
+                },
+                "timeZoneId": "[parameters('autoShutdownTimeZone')]",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
+                "notificationSettings": {
+                    "status": "[parameters('autoShutdownNotificationStatus')]",
+                    "notificationLocale": "[parameters('autoShutdownNotificationLocale')]",
+                    "timeInMinutes": "30",
+                    "emailRecipient": "[parameters('autoShutdownNotificationEmail')]"
+                }
+            }
+        },
         {
           "name": "CustomScriptExtension1",
           "type": "extensions",
