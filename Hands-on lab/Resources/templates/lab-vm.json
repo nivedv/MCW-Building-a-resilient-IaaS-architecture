@@ -27,7 +27,7 @@
     },
     "baseUri": {
         "type": "string",
-        "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/november-2020-test-fix/Hands-on%20lab/Resources/"
+        "defaultValue": "https://raw.githubusercontent.com/nivedv/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/"
     },
     "autoShutdownStatus": {
             "type": "string"
