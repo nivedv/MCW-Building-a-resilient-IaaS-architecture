@@ -19,7 +19,7 @@ if([string]::IsNullOrEmpty($sourceFileUrl) -eq $false -and [string]::IsNullOrEmp
     Write-Output "Unzipping $destinationPath to $destinationFolder"
     (new-object -com shell.application).namespace($destinationFolder).CopyHere((new-object -com shell.application).namespace($destinationPath).Items(),16)
 }
-#install WSL 
+#install WSL latest version
 start-process wsl --install
 
 # Install Chrome
